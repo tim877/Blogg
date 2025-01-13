@@ -1,12 +1,13 @@
-// src/app/shared/navbar/navbar.component.ts
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ModalService } from '../../services/modal.service';
+import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   template: `
     <nav class="navbar">
       <div class="nav-brand">Min Webbplats</div>
@@ -14,16 +15,45 @@ import { ModalService } from '../../services/modal.service';
         <a routerLink="/home" routerLinkActive="active">Hem</a>
         <a routerLink="/blog" routerLinkActive="active">Blogg</a>
         <a routerLink="/about" routerLinkActive="active">Om mig</a>
-        <button (click)="openCreatePostModal()">Skapa nytt inlägg</button>
+
+        <button (click)="toggleView()">
+          {{ isOwnerView ? 'Byt till användarvy' : 'Byt till ägarvy' }}
+        </button>
+
+        <button *ngIf="isBlogPage && isOwnerView" (click)="openCreatePostModal()">Skapa nytt inlägg</button>
       </div>
     </nav>
   `,
-  styleUrl: './navbar.component.scss'
+  styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
-  constructor(private modalService: ModalService) {}
+export class NavbarComponent implements OnInit {
+  isBlogPage = false;
+  isOwnerView = false;
+
+  constructor(
+    private modalService: ModalService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(() => this.router.url.includes('/blog'))
+    ).subscribe(() => {
+      this.isBlogPage = true;
+    });
+
+    this.router.events.pipe(
+      filter(() => !this.router.url.includes('/blog'))
+    ).subscribe(() => {
+      this.isBlogPage = false;
+    });
+  }
+
+  toggleView() {
+    this.isOwnerView = !this.isOwnerView;
+  }
 
   openCreatePostModal() {
-    this.modalService.toggleModal(true);  // Skickar signal om att visa modal
+    this.modalService.toggleModal(true);
   }
 }

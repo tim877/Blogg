@@ -1,22 +1,28 @@
-// src/app/services/blog.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BlogService {
-  private blogPosts: { title: string, content: string, date: string }[] = [];
+  private blogPostsKey = 'blogPosts';
 
-  getBlogPosts() {
-    return this.blogPosts;
+  constructor() {}
+
+  // Method to get all blog posts from localStorage
+  getBlogPosts(): { title: string; content: string; date: string; imageUrl?: string }[] {
+    const blogPosts = localStorage.getItem(this.blogPostsKey);
+    return blogPosts ? JSON.parse(blogPosts) : [];
   }
 
-  addBlogPost(title: string, content: string) {
-    const newPost = {
-      title: title,
-      content: content,
-      date: new Date().toLocaleString()
-    };
-    this.blogPosts.unshift(newPost); // Lägg till nya inlägg högst upp
+  // Method to add a new blog post
+  addBlogPost(title: string, content: string, date: string, imageUrl: string) {
+    const blogPosts = this.getBlogPosts();
+    blogPosts.push({ title, content, date, imageUrl });
+    localStorage.setItem(this.blogPostsKey, JSON.stringify(blogPosts));
+  }
+
+  // Method to clear all blog posts from localStorage
+  clearAllPosts(): void {
+    localStorage.removeItem(this.blogPostsKey);
   }
 }

@@ -1,18 +1,18 @@
-// src/app/services/modal.service.ts
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ModalService {
-  private modalSubject = new Subject<boolean>();
+  private modalVisibleSubject = new BehaviorSubject<boolean>(false);  // Modal visibility as BehaviorSubject
+  modalVisible$ = this.modalVisibleSubject.asObservable();  // Observable for components to subscribe to
 
-  // Observable för att prenumerera på modalens synlighet
-  modalVisibility$ = this.modalSubject.asObservable();
-
-  // Metod för att visa eller dölja modal
   toggleModal(show: boolean) {
-    this.modalSubject.next(show);
+    this.modalVisibleSubject.next(show);  // Update modal visibility state
+  }
+
+  getModalVisible(): boolean {
+    return this.modalVisibleSubject.getValue();  // Get the current modal visibility state
   }
 }
