@@ -45,6 +45,7 @@ h1 {
 .blog-post h2 {
   font-size: 1.5rem;
   color: #007bff;
+  margin: 0px;
 }
 
 .blog-post p {
@@ -174,116 +175,14 @@ button:focus {
   }
 }
 
-/* Modal container */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Halvtransparent bakgrund */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Form styling */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-label {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* Input and textarea styling */
-input,
-textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-input:focus,
-textarea:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-/* Button styling */
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"] {
-  background-color: #007bff;
-  color: white;
-}
-
-button[type="submit"]:hover {
-  background-color: #0056b3;
-}
-
-button[type="button"] {
-  background-color: #f44336;
-  color: white;
-}
-
-button[type="button"]:hover {
-  background-color: #d32f2f;
-}
-
-button:focus {
-  outline: none;
-}
-
-// image size in post
+/* image size in post */
 .post-image {
   max-width: 100%;
   height: auto;
   margin: 10px 0;
 }
 
-
+/* Clear Posts Button Styling */
 .clear-posts-btn {
   background-color: #f44336;  // Röd färg för att indikera rensning
   color: white;               // Vit text
@@ -308,4 +207,25 @@ button:focus {
 .clear-posts-btn:active {
   background-color: #b71c1c;  // Mörkare röd när man klickar
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  // Lägger till en liten skugga när knappen är aktiv
+}
+
+/* Styling for the actions section (Läs mer and Likes buttons) */
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.likes-dislikes {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  margin-left: 10px;
+}
+
+span {
+  margin-left: 5px; /* Adjust the value as needed */
 }
