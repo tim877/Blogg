@@ -1,10 +1,11 @@
+// src/app/pages/blog/blog.component.ts
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { ModalService } from '../../services/modal.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; // Import Angular Router for navigation
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -15,11 +16,12 @@ import { Router } from '@angular/router'; // Import Angular Router for navigatio
 })
 export class BlogComponent implements OnInit, OnDestroy {
   blogPosts: {
+    id: string;
     title: string;
     content: string;
     date: string;
     imageUrl?: string;
-    likes: number; // Ensure likes is included
+    likes: number;
   }[] = [];
   showModal = false;
   newPostTitle = '';
@@ -27,24 +29,24 @@ export class BlogComponent implements OnInit, OnDestroy {
   selectedImage: File | null = null;
   modalSubscription!: Subscription;
 
-  @Input() isOwnerView: boolean = false; // Accept the isOwnerView flag from parent component
+  @Input() isOwnerView: boolean = false;
 
   constructor(
     private readonly blogService: BlogService,
     private modalService: ModalService,
-    private router: Router // Inject Angular Router
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.blogPosts = this.blogService.getBlogPosts().map(post => ({
+    this.blogPosts = this.blogService.getBlogPosts().map((post) => ({
       ...post,
-      likes: post.likes ?? 0, // Ensure the likes property exists with a default value
+      likes: post.likes ?? 0,
     }));
-
+    // Sort posts in descending order: Latest posts first (top of the list)
     this.blogPosts.sort((a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
-      return dateB.getTime() - dateA.getTime(); // Latest post first
+      return dateB.getTime() - dateA.getTime(); // Sort in descending order
     });
 
     this.modalSubscription = this.modalService.modalVisible$.subscribe(
@@ -56,6 +58,12 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.modalSubscription.unsubscribe();
+  }
+
+  generateUniqueId(): string {
+    const timestamp = Date.now();
+    const randomPart = Math.random().toString(36).substring(2, 15);
+    return `${timestamp}-${randomPart}`;
   }
 
   openCreatePostModal() {
@@ -82,7 +90,11 @@ export class BlogComponent implements OnInit, OnDestroy {
       ? URL.createObjectURL(this.selectedImage)
       : '';
 
+    const uniqueId = this.generateUniqueId(); // Generate unique IQ for the post
+    console.log(`New post created with unique ID: ${uniqueId}`); // Log the unique ID
+
     const newPost = {
+      id: uniqueId, // Add the unique ID to the post data
       title: this.newPostTitle,
       content: this.newPostContent,
       date: `${formattedDate} ${formattedTime}`,
@@ -90,16 +102,25 @@ export class BlogComponent implements OnInit, OnDestroy {
       likes: 0, // Ensure likes is included
     };
 
-    // Pass the newPost object with the 'likes' property
+    // Add the new post to the service (and localStorage)
     this.blogService.addBlogPost(
+      newPost.id, // Ensure unique ID is passed
       newPost.title,
       newPost.content,
       newPost.date,
       newPost.imageUrl,
-      newPost.likes // Make sure likes is passed correctly
+      newPost.likes
     );
 
+    // Now update the component's blogPosts array
     this.blogPosts = this.blogService.getBlogPosts();
+
+    // Sort posts to ensure latest ones come first
+    this.blogPosts.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB.getTime() - dateA.getTime();
+    });
 
     this.newPostTitle = '';
     this.newPostContent = '';
@@ -110,7 +131,7 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   clearAllPosts() {
     this.blogService.clearAllPosts();
-    this.blogPosts = []; // Clear the blog posts in the component as well
+    this.blogPosts = [];
   }
 
   formatDate(date: Date): string {
@@ -127,28 +148,26 @@ export class BlogComponent implements OnInit, OnDestroy {
   }
 
   goToPost(post: {
+    id: string;
     title: string;
     content: string;
     date: string;
     imageUrl?: string;
-    likes: number; // Ensure likes is included
+    likes: number;
   }) {
-    const postId = this.blogPosts.indexOf(post); // Find the post index
+    const postId = post.id; // Use the unique ID
     this.router.navigate(['/blog', postId]); // Navigate to the blog details route
   }
 
-  // Method to update likes for each post
   updateLikes(index: number, direction: string) {
     const post = this.blogPosts[index];
 
-    // Update the likes count based on the direction
     if (direction === 'up') {
       post.likes++;
     } else if (direction === 'down') {
       post.likes--;
     }
 
-    // Update the blog post in localStorage
     this.blogService.updateBlogPost(post);
   }
 }

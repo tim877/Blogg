@@ -1,48 +1,57 @@
+// src/app/pages/blog/blog.component.html
 <div class="page">
-    <h1>Min Blogg</h1>
-    <div class="blog-posts">
-      <article class="blog-post" *ngFor="let post of blogPosts; let i = index">
-        <h2>{{ post.title }}</h2>
-  
-        <div *ngIf="post.imageUrl">
-          <img [src]="post.imageUrl" alt="Blog Post Image" class="post-image" />
-        </div>
-  
-        <small>Publicerad: {{ post.date }}</small>
-  
-        <div class="post-actions">
-          <!-- Read More button -->
-          <button (click)="goToPost(post)">Läs mer</button>
-  
-          <!-- Like/Dislike Section placed on the right -->
-          <div class="likes-dislikes">
-            <button (click)="updateLikes(i, 'up')">↑</button>
-            <span>{{ post.likes }}</span>
-            <button (click)="updateLikes(i, 'down')">↓</button>
-          </div>
-        </div>
-      </article>
-    </div>
-  
-    <div *ngIf="showModal" class="modal">
-      <div class="modal-content">
-        <h2>Skapa Blogginlägg</h2>
-        <form (ngSubmit)="createPost()">
-          <label for="title">Titel:</label>
-          <input id="title" [(ngModel)]="newPostTitle" name="title" required />
-          <label for="content">Innehåll:</label>
-          <textarea id="content" [(ngModel)]="newPostContent" name="content" required></textarea>
-          <label for="image">Bild:</label>
-          <input id="image" type="file" (change)="onImageSelected($event)" />
-          <button type="submit">Spara inlägg</button>
-          <button type="button" (click)="closeCreatePostModal()">Stäng</button>
-        </form>
+  <h1>Min Blogg</h1>
+  <div class="blog-posts">
+    <article class="blog-post" *ngFor="let post of blogPosts; let i = index">
+      <h2>{{ post.title }}</h2>
+
+      <div *ngIf="post.imageUrl">
+        <img [src]="post.imageUrl" alt="Blog Post Image" class="post-image" />
       </div>
-    </div>
-  
-    <!-- Only show this button if it's user view -->
-    <button *ngIf="!isOwnerView" (click)="clearAllPosts()" class="clear-posts-btn">
-      Rensa alla inlägg
-    </button>
+
+      <small>Publicerad: {{ post.date }}</small>
+
+      <div class="post-actions">
+        <!-- Read More button -->
+        <button (click)="goToPost(post)">Läs mer</button>
+
+        <!-- Like/Dislike Section placed on the right -->
+        <div class="likes-dislikes">
+          <button (click)="updateLikes(i, 'up')">↑</button>
+          <span>{{ post.likes }}</span>
+          <button (click)="updateLikes(i, 'down')">↓</button>
+        </div>
+      </div>
+    </article>
   </div>
-  
+
+  <div *ngIf="showModal" class="modal">
+    <div class="modal-content">
+      <h2>Skapa Blogginlägg</h2>
+      <form (ngSubmit)="createPost()">
+        <label for="title">Titel:</label>
+        <input id="title" [(ngModel)]="newPostTitle" name="title" required />
+        <label for="content">Innehåll:</label>
+        <textarea
+          id="content"
+          [(ngModel)]="newPostContent"
+          name="content"
+          required
+        ></textarea>
+        <label for="image">Bild:</label>
+        <input id="image" type="file" (change)="onImageSelected($event)" />
+        <button type="submit">Spara inlägg</button>
+        <button type="button" (click)="closeCreatePostModal()">Stäng</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Only show this button if it's user view -->
+  <button
+    *ngIf="!isOwnerView"
+    (click)="clearAllPosts()"
+    class="clear-posts-btn"
+  >
+    Rensa alla inlägg
+  </button>
+</div>

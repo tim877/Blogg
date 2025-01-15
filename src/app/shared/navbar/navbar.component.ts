@@ -1,3 +1,4 @@
+// src/app/shared/navbar/navbar.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ModalService } from '../../services/modal.service';
@@ -20,33 +21,35 @@ import { filter } from 'rxjs/operators';
           {{ isOwnerView ? 'Byt till användarvy' : 'Byt till ägarvy' }}
         </button>
 
-        <button *ngIf="isBlogPage && isOwnerView" (click)="openCreatePostModal()">Skapa nytt inlägg</button>
+        <button
+          *ngIf="isBlogPage && isOwnerView"
+          (click)="openCreatePostModal()"
+        >
+          Skapa nytt inlägg
+        </button>
       </div>
     </nav>
   `,
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   isBlogPage = false;
   isOwnerView = false;
 
-  constructor(
-    private modalService: ModalService,
-    private router: Router
-  ) {}
+  constructor(private modalService: ModalService, private router: Router) {}
 
   ngOnInit() {
-    this.router.events.pipe(
-      filter(() => this.router.url.includes('/blog'))
-    ).subscribe(() => {
-      this.isBlogPage = true;
-    });
+    this.router.events
+      .pipe(filter(() => this.router.url.includes('/blog')))
+      .subscribe(() => {
+        this.isBlogPage = true;
+      });
 
-    this.router.events.pipe(
-      filter(() => !this.router.url.includes('/blog'))
-    ).subscribe(() => {
-      this.isBlogPage = false;
-    });
+    this.router.events
+      .pipe(filter(() => !this.router.url.includes('/blog')))
+      .subscribe(() => {
+        this.isBlogPage = false;
+      });
   }
 
   toggleView() {
