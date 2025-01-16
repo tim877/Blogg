@@ -5,7 +5,7 @@
     <img [src]="post.imageUrl" alt="Blog Post Image" class="post-image" />
   </div>
 
-  <small>Publicerad: {{ post.date }}</small>
+  <small>Published: {{ post.date }}</small>
 
   <div class="post-content">
     <p>{{ post.content }}</p>
@@ -40,5 +40,5 @@
 </div>
 
 <ng-template #loading>
-  <p>Laddar inlägget...</p>
+  <p>Loading post...</p>
 </ng-template>

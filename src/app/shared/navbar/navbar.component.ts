@@ -11,21 +11,21 @@ import { filter } from 'rxjs/operators';
   imports: [RouterLink, RouterLinkActive, CommonModule],
   template: `
     <nav class="navbar">
-      <div class="nav-brand">Min Webbplats</div>
+      <div class="nav-brand">My Website</div>
       <div class="nav-links">
-        <a routerLink="/home" routerLinkActive="active">Hem</a>
-        <a routerLink="/blog" routerLinkActive="active">Blogg</a>
-        <a routerLink="/about" routerLinkActive="active">Om mig</a>
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+        <a routerLink="/blog" routerLinkActive="active">Blog</a>
+        <a routerLink="/about" routerLinkActive="active">About Me</a>
 
         <button (click)="toggleView()">
-          {{ isOwnerView ? 'Byt till användarvy' : 'Byt till ägarvy' }}
+          {{ isOwnerView ? 'Switch to User View' : 'Switch to Owner View' }}
         </button>
 
         <button
           *ngIf="isBlogPage && isOwnerView"
           (click)="openCreatePostModal()"
         >
-          Skapa nytt inlägg
+          Create New Post
         </button>
       </div>
     </nav>

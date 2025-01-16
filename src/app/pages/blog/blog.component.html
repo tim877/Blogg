@@ -1,6 +1,6 @@
-// src/app/pages/blog/blog.component.html
+<!-- src/app/pages/blog/blog.component.html -->
 <div class="page">
-  <h1>Min Blogg</h1>
+  <h1>My Blog</h1>
   <div class="blog-posts">
     <article class="blog-post" *ngFor="let post of blogPosts; let i = index">
       <h2>{{ post.title }}</h2>
@@ -9,11 +9,11 @@
         <img [src]="post.imageUrl" alt="Blog Post Image" class="post-image" />
       </div>
 
-      <small>Publicerad: {{ post.date }}</small>
+      <small>Published: {{ post.date }}</small>
 
       <div class="post-actions">
         <!-- Read More button -->
-        <button (click)="goToPost(post)">Läs mer</button>
+        <button (click)="goToPost(post)">Read more</button>
 
         <!-- Like/Dislike Section placed on the right -->
         <div class="likes-dislikes">
@@ -27,21 +27,21 @@
 
   <div *ngIf="showModal" class="modal">
     <div class="modal-content">
-      <h2>Skapa Blogginlägg</h2>
+      <h2>Create Blog Post</h2>
       <form (ngSubmit)="createPost()">
-        <label for="title">Titel:</label>
+        <label for="title">Title:</label>
         <input id="title" [(ngModel)]="newPostTitle" name="title" required />
-        <label for="content">Innehåll:</label>
+        <label for="content">Content:</label>
         <textarea
           id="content"
           [(ngModel)]="newPostContent"
           name="content"
           required
         ></textarea>
-        <label for="image">Bild:</label>
+        <label for="image">Image:</label>
         <input id="image" type="file" (change)="onImageSelected($event)" />
-        <button type="submit">Spara inlägg</button>
-        <button type="button" (click)="closeCreatePostModal()">Stäng</button>
+        <button type="submit">Save Post</button>
+        <button type="button" (click)="closeCreatePostModal()">Close</button>
       </form>
     </div>
   </div>
@@ -52,6 +52,6 @@
     (click)="clearAllPosts()"
     class="clear-posts-btn"
   >
-    Rensa alla inlägg
+    Clear all posts
   </button>
 </div>
