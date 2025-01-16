@@ -1,22 +1,22 @@
-<!-- src/app/pages/blog-post-detail/blog-post-detail.component.html -->
-<div class="page">
-  <h1>{{ post?.title }}</h1>
-
-  <!-- Blog post image (if exists) -->
-  <div *ngIf="post?.imageUrl">
-    <img [src]="post?.imageUrl" alt="Blog Post Image" class="post-image" />
+<div *ngIf="post; else loading">
+  <h1>{{ post.title ? post.title : "Title Not Available" }}</h1> <!-- Fallback if title is empty or undefined -->
+  <div *ngIf="post.imageUrl">
+    <img [src]="post.imageUrl" alt="Blog Post Image" class="post-image" />
   </div>
 
-  <small>Publicerad: {{ post?.date }}</small>
+  <small>Publicerad: {{ post.date }}</small>
 
   <div class="post-content">
-    <p>{{ post?.content }}</p>
+    <p>{{ post.content }}</p>
   </div>
 
-  <!-- Like/Dislike Section -->
   <div class="likes-dislikes">
     <button (click)="updateLikes('up')">↑</button>
-    <span>{{ post?.likes }}</span>
+    <span>{{ post.likes }}</span>
     <button (click)="updateLikes('down')">↓</button>
   </div>
 </div>
+
+<ng-template #loading>
+  <p>Laddar inlägget...</p>
+</ng-template>

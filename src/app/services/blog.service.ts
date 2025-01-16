@@ -28,18 +28,19 @@ export class BlogService {
   }
 
   // Lägg till ett nytt inlägg
-  addBlogPost(
-    title: string,
-    content: string,
-    date: string,
-    imageUrl: string,
-    likes: number = 0,
-    dislikes: number = 0
-  ) {
-    const id = this.generateUniqueId(); // Skapa unikt ID
-    const blogPosts = this.getBlogPosts();
-    blogPosts.push({ id, title, content, date, imageUrl, likes, dislikes }); // Lägg till dislikes här
-    localStorage.setItem(this.blogPostsKey, JSON.stringify(blogPosts));
+  addBlogPost(title: string, content: string, date: string, imageUrl: string) {
+    const id = this.generateUniqueId(); // Create unique ID
+    const blogPosts = this.getBlogPosts(); // Get existing posts
+    blogPosts.push({
+      id,
+      title,
+      content,
+      date,
+      imageUrl,
+      likes: 0,
+      dislikes: 0,
+    }); // Add new post
+    localStorage.setItem(this.blogPostsKey, JSON.stringify(blogPosts)); // Save to localStorage
   }
 
   // Uppdatera ett existerande inlägg
@@ -62,13 +63,11 @@ export class BlogService {
 
   // Hämta ett specifikt inlägg baserat på ID
   getBlogPostById(postId: string) {
-    const blogPosts = this.getBlogPosts(); // Use the method to get the blog posts
-    const post = blogPosts.find((p) => p.id === postId); // Now search within the fetched posts
+    const blogPosts = this.getBlogPosts(); // Get all blog posts from localStorage
+    const post = blogPosts.find((p) => p.id === postId); // Find the post by id
 
-    if (post) {
-      return post; // Return the post directly
-    }
-    return undefined; // Or handle the case when no post is found
+    console.log('Post Found in Service:', post); // Debugging post retrieval
+    return post ? post : undefined; // If found, return the post, otherwise return undefined
   }
 
   // Rensa alla inlägg

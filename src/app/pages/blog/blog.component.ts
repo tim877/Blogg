@@ -93,9 +93,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       this.newPostTitle,
       this.newPostContent,
       `${formattedDate} ${formattedTime}`,
-      imageUrl,
-      0, // Initial likes
-      0 // Initial dislikes
+      imageUrl
     );
 
     // Now update the component's blogPosts array

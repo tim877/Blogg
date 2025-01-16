@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common'; // Import CommonModule
 
 @Component({
   standalone: true, // Ensure this is true
-  imports: [CommonModule], // CommonModule should be used here
+  imports: [CommonModule], // Import CommonModule here
   selector: 'app-blog-post-detail',
   templateUrl: './blog-post-detail.component.html',
   styleUrls: ['./blog-post-detail.component.scss'],
@@ -30,8 +30,15 @@ export class BlogPostDetailComponent implements OnInit {
 
   ngOnInit() {
     const postId = this.route.snapshot.paramMap.get('id'); // Get id from URL
+    console.log('Post ID:', postId); // Debugging postId
     if (postId) {
       this.post = this.blogService.getBlogPostById(postId); // Get post from service
+      console.log('Fetched Post:', this.post); // Debugging the fetched post
+    }
+
+    // Debugging the title directly to ensure it's available
+    if (this.post) {
+      console.log('Post Title:', this.post.title); // Check title explicitly
     }
   }
 

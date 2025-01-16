@@ -1,0 +1,11 @@
+<!-- comment-form.component.html -->
+<div class="comment-form">
+  <textarea
+    [(ngModel)]="comment"
+    placeholder="Add a comment..."
+    rows="4"
+    cols="50"
+  >
+  </textarea>
+  <button (click)="addComment()">Post Comment</button>
+</div>

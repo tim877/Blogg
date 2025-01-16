@@ -1,0 +1,135 @@
+/* General page layout */
+.page {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Adjust to start from the top of the page */
+}
+
+/* Blog post title */
+h1 {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+  margin-top: 80px;
+}
+
+/* Image styling */
+.post-image {
+  width: 80%; /* Set to 100% or a smaller value like 80% for better balance */
+  max-width: 400px; /* Optional: Limit the maximum size of the image */
+  height: auto; /* Keep height proportional to the width for better scaling */
+  max-height: 400px; /* Optional: Cap the height to avoid oversized images */
+  object-fit: cover; /* Ensure the image fills the space without distortion */
+  border-radius: 8px;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Date */
+small {
+  display: block;
+  font-size: 0.875rem;
+  color: #777;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Content styling */
+.post-content {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1px;
+  text-align: center; /* Centers the text */
+  width: 100%;
+  max-width: 900px; /* Allow more content space */
+
+  /* Flexbox for centering */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Horizontally centers the content */
+  justify-content: center; /* Vertically centers the content */
+  margin-left: auto;
+  margin-right: auto; /* Center the entire content block */
+}
+
+/* Likes and dislikes buttons */
+.likes-dislikes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.likes-dislikes button {
+  background-color: #f4f4f9;
+  border: 2px solid #007bff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  color: #007bff;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.likes-dislikes button:hover {
+  background-color: #007bff;
+  color: white;
+  transform: scale(1.1);
+}
+
+.likes-dislikes button:active {
+  background-color: #0056b3;
+  transform: scale(1);
+}
+
+/* Like/dislike count */
+.likes-dislikes span {
+  font-size: 1.2rem;
+  color: #444;
+  font-weight: bold;
+}
+
+/* Loading template */
+ng-template#loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #007bff;
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .post-content {
+    font-size: 1rem;
+  }
+
+  .likes-dislikes {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .likes-dislikes button {
+    font-size: 1.3rem;
+  }
+
+  .post-image {
+    max-height: 350px; /* Slightly smaller image for mobile */
+  }
+
+  .post-content {
+    max-width: 100%;
+    padding: 0 10px; /* Padding to avoid content touching the edges */
+  }
+}
