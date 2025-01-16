@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BlogService } from '../services/blog.service';
+import { BlogService } from '../../services/blog.service';
+import { CommonModule } from '@angular/common'; // Import CommonModule
 
 @Component({
+  standalone: true, // Ensure this is true
+  imports: [CommonModule], // CommonModule should be used here
   selector: 'app-blog-post-detail',
   templateUrl: './blog-post-detail.component.html',
   styleUrls: ['./blog-post-detail.component.scss'],
@@ -26,9 +29,21 @@ export class BlogPostDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const postId = this.route.snapshot.paramMap.get('id'); // Hämta id från URL
+    const postId = this.route.snapshot.paramMap.get('id'); // Get id from URL
     if (postId) {
-      this.post = this.blogService.getBlogPostById(postId); // Hämta blogginlägg från service
+      this.post = this.blogService.getBlogPostById(postId); // Get post from service
+      if (this.post) {
+        // Perform type assertion to ensure TypeScript knows the properties exist
+        this.post = this.post as {
+          id: string;
+          title: string;
+          content: string;
+          date: string;
+          imageUrl?: string;
+          likes: number;
+          dislikes: number;
+        };
+      }
     }
   }
 
@@ -39,7 +54,7 @@ export class BlogPostDetailComponent implements OnInit {
       } else if (direction === 'down') {
         this.post.likes--;
       }
-      this.blogService.updateBlogPost(this.post); // Uppdatera posten i service
+      this.blogService.updateBlogPost(this.post); // Update post in service
     }
   }
 
@@ -50,7 +65,7 @@ export class BlogPostDetailComponent implements OnInit {
       } else if (direction === 'down') {
         this.post.dislikes--;
       }
-      this.blogService.updateBlogPost(this.post); // Uppdatera posten i service
+      this.blogService.updateBlogPost(this.post); // Update post in service
     }
   }
 }

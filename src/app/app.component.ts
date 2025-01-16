@@ -13,6 +13,6 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
       <router-outlet></router-outlet>
     </main>
   `,
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {}

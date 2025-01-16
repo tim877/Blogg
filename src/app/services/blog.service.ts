@@ -61,17 +61,19 @@ export class BlogService {
   }
 
   // Hämta ett specifikt inlägg baserat på ID
-  getBlogPostById(id: string):
-    | {
-        title: string;
-        content: string;
-        imageUrl?: string;
-        likes: number;
-        dislikes: number;
-      }
-    | undefined {
-    const blogPosts = this.getBlogPosts();
-    return blogPosts.find((post) => post.id === id);
+  // Hämta ett specifikt inlägg baserat på ID
+  getBlogPostById(postId: string) {
+    const blogPosts = this.getBlogPosts(); // Use the method to get the blog posts
+    const post = blogPosts.find((p) => p.id === postId); // Now search within the fetched posts
+
+    if (post) {
+      return {
+        ...post,
+        id: post.id || 'default-id', // Ensure 'id' is always available
+        date: post.date || new Date().toISOString(), // Default to current date if 'date' is missing
+      };
+    }
+    return undefined; // Or handle the case when no post is found
   }
 
   // Rensa alla inlägg
