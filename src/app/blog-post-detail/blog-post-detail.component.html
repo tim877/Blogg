@@ -1,0 +1,16 @@
+<div *ngIf="post">
+  <h1>{{ post.title }}</h1>
+  <p><strong>Datum:</strong> {{ post.date }}</p>
+  <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
+  <p>{{ post.content }}</p>
+  <div>
+    <button (click)="updateLikes('up')">Like ({{ post.likes }})</button>
+    <button (click)="updateLikes('down')">Dislike ({{ post.likes }})</button>
+  </div>
+  <div>
+    <button (click)="updateDislikes('up')">Like ({{ post.dislikes }})</button>
+    <button (click)="updateDislikes('down')">
+      Dislike ({{ post.dislikes }})
+    </button>
+  </div>
+</div>

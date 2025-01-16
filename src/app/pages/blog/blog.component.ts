@@ -1,4 +1,3 @@
-// src/app/pages/blog/blog.component.ts
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { ModalService } from '../../services/modal.service';
@@ -22,6 +21,7 @@ export class BlogComponent implements OnInit, OnDestroy {
     date: string;
     imageUrl?: string;
     likes: number;
+    dislikes: number;
   }[] = [];
   showModal = false;
   newPostTitle = '';
@@ -38,10 +38,8 @@ export class BlogComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.blogPosts = this.blogService.getBlogPosts().map((post) => ({
-      ...post,
-      likes: post.likes ?? 0,
-    }));
+    this.blogPosts = this.blogService.getBlogPosts(); // Fetch posts from the service
+
     // Sort posts in descending order: Latest posts first (top of the list)
     this.blogPosts.sort((a, b) => {
       const dateA = new Date(a.date);
@@ -90,26 +88,14 @@ export class BlogComponent implements OnInit, OnDestroy {
       ? URL.createObjectURL(this.selectedImage)
       : '';
 
-    const uniqueId = this.generateUniqueId(); // Generate unique IQ for the post
-    console.log(`New post created with unique ID: ${uniqueId}`); // Log the unique ID
-
-    const newPost = {
-      id: uniqueId, // Add the unique ID to the post data
-      title: this.newPostTitle,
-      content: this.newPostContent,
-      date: `${formattedDate} ${formattedTime}`,
-      imageUrl,
-      likes: 0, // Ensure likes is included
-    };
-
-    // Add the new post to the service (and localStorage)
+    // Use the blogService to add a new post
     this.blogService.addBlogPost(
-      newPost.id, // Ensure unique ID is passed
-      newPost.title,
-      newPost.content,
-      newPost.date,
-      newPost.imageUrl,
-      newPost.likes
+      this.newPostTitle,
+      this.newPostContent,
+      `${formattedDate} ${formattedTime}`,
+      imageUrl,
+      0, // Initial likes
+      0 // Initial dislikes
     );
 
     // Now update the component's blogPosts array
@@ -122,6 +108,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       return dateB.getTime() - dateA.getTime();
     });
 
+    // Reset the new post fields
     this.newPostTitle = '';
     this.newPostContent = '';
     this.selectedImage = null;
@@ -154,6 +141,7 @@ export class BlogComponent implements OnInit, OnDestroy {
     date: string;
     imageUrl?: string;
     likes: number;
+    dislikes: number;
   }) {
     const postId = post.id; // Use the unique ID
     this.router.navigate(['/blog', postId]); // Navigate to the blog details route
@@ -166,6 +154,18 @@ export class BlogComponent implements OnInit, OnDestroy {
       post.likes++;
     } else if (direction === 'down') {
       post.likes--;
+    }
+
+    this.blogService.updateBlogPost(post);
+  }
+
+  updateDislikes(index: number, direction: string) {
+    const post = this.blogPosts[index];
+
+    if (direction === 'up') {
+      post.dislikes++;
+    } else if (direction === 'down') {
+      post.dislikes--;
     }
 
     this.blogService.updateBlogPost(post);
