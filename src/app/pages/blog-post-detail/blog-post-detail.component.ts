@@ -32,21 +32,10 @@ export class BlogPostDetailComponent implements OnInit {
     const postId = this.route.snapshot.paramMap.get('id'); // Get id from URL
     if (postId) {
       this.post = this.blogService.getBlogPostById(postId); // Get post from service
-      if (this.post) {
-        // Perform type assertion to ensure TypeScript knows the properties exist
-        this.post = this.post as {
-          id: string;
-          title: string;
-          content: string;
-          date: string;
-          imageUrl?: string;
-          likes: number;
-          dislikes: number;
-        };
-      }
     }
   }
 
+  // Method to update likes
   updateLikes(direction: string) {
     if (this.post) {
       if (direction === 'up') {
@@ -54,18 +43,8 @@ export class BlogPostDetailComponent implements OnInit {
       } else if (direction === 'down') {
         this.post.likes--;
       }
-      this.blogService.updateBlogPost(this.post); // Update post in service
-    }
-  }
-
-  updateDislikes(direction: string) {
-    if (this.post) {
-      if (direction === 'up') {
-        this.post.dislikes++;
-      } else if (direction === 'down') {
-        this.post.dislikes--;
-      }
-      this.blogService.updateBlogPost(this.post); // Update post in service
+      // Update the post in your blog service or localStorage
+      this.blogService.updateBlogPost(this.post);
     }
   }
 }

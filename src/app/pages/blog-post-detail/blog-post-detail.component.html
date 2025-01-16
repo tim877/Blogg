@@ -1,20 +1,22 @@
-<div *ngIf="post">
-  <h1>{{ post.title }}</h1>
-  <p><strong>Date:</strong> {{ post.date }}</p>
-  <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" />
-  <p>{{ post.content }}</p>
+<!-- src/app/pages/blog-post-detail/blog-post-detail.component.html -->
+<div class="page">
+  <h1>{{ post?.title }}</h1>
 
-  <!-- Like Buttons -->
-  <div>
-    <button (click)="updateLikes('up')">Like ({{ post.likes }})</button>
-    <button (click)="updateLikes('down')">Dislike ({{ post.likes }})</button>
+  <!-- Blog post image (if exists) -->
+  <div *ngIf="post?.imageUrl">
+    <img [src]="post?.imageUrl" alt="Blog Post Image" class="post-image" />
   </div>
 
-  <!-- Dislike Buttons -->
-  <div>
-    <button (click)="updateDislikes('up')">Like ({{ post.dislikes }})</button>
-    <button (click)="updateDislikes('down')">
-      Dislike ({{ post.dislikes }})
-    </button>
+  <small>Publicerad: {{ post?.date }}</small>
+
+  <div class="post-content">
+    <p>{{ post?.content }}</p>
+  </div>
+
+  <!-- Like/Dislike Section -->
+  <div class="likes-dislikes">
+    <button (click)="updateLikes('up')">↑</button>
+    <span>{{ post?.likes }}</span>
+    <button (click)="updateLikes('down')">↓</button>
   </div>
 </div>
