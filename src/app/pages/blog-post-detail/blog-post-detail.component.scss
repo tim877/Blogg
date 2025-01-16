@@ -133,3 +133,50 @@ ng-template#loading {
     padding: 0 10px; /* Padding to avoid content touching the edges */
   }
 }
+
+.comments-section {
+  margin-top: 20px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  margin-left: auto;
+  margin-right: auto; /* Center the section itself horizontally */
+}
+
+.comments-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center; /* Center the title text */
+}
+
+.comment {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  width: 100%; /* Ensure comments take up the full width of the section */
+  max-width: 450px; /* Limit the max width of each comment */
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  resize: vertical;
+}
+
+button {
+  padding: 5px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

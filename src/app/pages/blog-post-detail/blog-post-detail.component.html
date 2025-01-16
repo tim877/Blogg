@@ -1,5 +1,6 @@
 <div *ngIf="post; else loading">
-  <h1>{{ post.title ? post.title : "Title Not Available" }}</h1> <!-- Fallback if title is empty or undefined -->
+  <h1>{{ post.title ? post.title : "Title Not Available" }}</h1>
+
   <div *ngIf="post.imageUrl">
     <img [src]="post.imageUrl" alt="Blog Post Image" class="post-image" />
   </div>
@@ -14,6 +15,27 @@
     <button (click)="updateLikes('up')">↑</button>
     <span>{{ post.likes }}</span>
     <button (click)="updateLikes('down')">↓</button>
+  </div>
+
+  <!-- Comment Section -->
+  <div class="comments-section">
+    <!-- Textarea for new comment -->
+    <textarea
+      [(ngModel)]="newComment"
+      placeholder="Add a comment..."
+      rows="4"
+      cols="50"
+    ></textarea>
+
+    <!-- Submit button for new comment -->
+    <button (click)="addComment()">Post Comment</button>
+
+    <h2>Comments</h2>
+
+    <!-- Displaying existing comments -->
+    <div *ngFor="let comment of post.comments" class="comment">
+      <p>{{ comment }}</p>
+    </div>
   </div>
 </div>
 

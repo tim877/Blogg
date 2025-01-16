@@ -22,6 +22,7 @@ export class BlogComponent implements OnInit, OnDestroy {
     imageUrl?: string;
     likes: number;
     dislikes: number;
+    comments: string[]; // Add comments here
   }[] = [];
   showModal = false;
   newPostTitle = '';
@@ -88,7 +89,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       ? URL.createObjectURL(this.selectedImage)
       : '';
 
-    // Use the blogService to add a new post
+    // Use the blogService to add a new post, make sure to include 'comments'
     this.blogService.addBlogPost(
       this.newPostTitle,
       this.newPostContent,
@@ -140,6 +141,7 @@ export class BlogComponent implements OnInit, OnDestroy {
     imageUrl?: string;
     likes: number;
     dislikes: number;
+    comments: string[]; // Include comments
   }) {
     const postId = post.id; // Use the unique ID
     this.router.navigate(['/blog', postId]); // Navigate to the blog details route

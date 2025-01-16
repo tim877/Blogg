@@ -1,5 +1,17 @@
 import { Injectable } from '@angular/core';
 
+// Define BlogPost interface for type safety
+interface BlogPost {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+  imageUrl?: string;
+  likes: number;
+  dislikes: number;
+  comments: string[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -8,27 +20,19 @@ export class BlogService {
 
   constructor() {}
 
-  // Funktion för att skapa ett unikt ID
+  // Helper function to generate unique ID
   private generateUniqueId(): string {
     return `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
   }
 
-  // Hämta alla blogginlägg
-  getBlogPosts(): {
-    id: string;
-    title: string;
-    content: string;
-    date: string;
-    imageUrl?: string;
-    likes: number;
-    dislikes: number;
-  }[] {
+  // Get all blog posts from localStorage
+  getBlogPosts(): BlogPost[] {
     const blogPosts = localStorage.getItem(this.blogPostsKey);
     return blogPosts ? JSON.parse(blogPosts) : [];
   }
 
-  // Lägg till ett nytt inlägg
-  addBlogPost(title: string, content: string, date: string, imageUrl: string) {
+  // Add a new blog post
+  addBlogPost(title: string, content: string, date: string, imageUrl: string): void {
     const id = this.generateUniqueId(); // Create unique ID
     const blogPosts = this.getBlogPosts(); // Get existing posts
     blogPosts.push({
@@ -39,38 +43,28 @@ export class BlogService {
       imageUrl,
       likes: 0,
       dislikes: 0,
+      comments: [], // Initialize comments array
     }); // Add new post
     localStorage.setItem(this.blogPostsKey, JSON.stringify(blogPosts)); // Save to localStorage
   }
 
-  // Uppdatera ett existerande inlägg
-  updateBlogPost(post: {
-    id: string;
-    title: string;
-    content: string;
-    date: string;
-    imageUrl?: string;
-    likes: number;
-    dislikes: number;
-  }) {
+  // Update an existing blog post
+  updateBlogPost(post: BlogPost): void {
     const blogPosts = this.getBlogPosts();
-    const postIndex = blogPosts.findIndex((p) => p.id === post.id);
+    const postIndex = blogPosts.findIndex((p: BlogPost) => p.id === post.id); // Explicitly define type
     if (postIndex !== -1) {
       blogPosts[postIndex] = post;
       localStorage.setItem(this.blogPostsKey, JSON.stringify(blogPosts));
     }
   }
 
-  // Hämta ett specifikt inlägg baserat på ID
-  getBlogPostById(postId: string) {
-    const blogPosts = this.getBlogPosts(); // Get all blog posts from localStorage
-    const post = blogPosts.find((p) => p.id === postId); // Find the post by id
-
-    console.log('Post Found in Service:', post); // Debugging post retrieval
-    return post ? post : undefined; // If found, return the post, otherwise return undefined
+  // Get a specific blog post by ID
+  getBlogPostById(postId: string): BlogPost | undefined {
+    const blogPosts = this.getBlogPosts();
+    return blogPosts.find((p: BlogPost) => p.id === postId); // Explicitly define type
   }
 
-  // Rensa alla inlägg
+  // Clear all blog posts from localStorage
   clearAllPosts(): void {
     localStorage.removeItem(this.blogPostsKey);
   }
