@@ -1,10 +1,11 @@
+// src/app/pages/blog-post-detail/blog-post-detail.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 import { ModalService } from '../../services/modal.service';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { FormsModule } from '@angular/forms'; // Import FormsModule for two-way binding
-import { Subscription } from 'rxjs';  // To manage subscriptions
+import { Subscription } from 'rxjs'; // To manage subscriptions
 
 @Component({
   standalone: true, // Ensure this is true

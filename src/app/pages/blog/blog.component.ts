@@ -1,3 +1,4 @@
+// src/app/pages/blog/blog.component.ts
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { ModalService } from '../../services/modal.service';
