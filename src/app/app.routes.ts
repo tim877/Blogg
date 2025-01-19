@@ -1,24 +1,18 @@
-// src/app/app.routes.ts
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'home', // Se till att omdirigera till home (som nu är blog)
     pathMatch: 'full',
   },
   {
-    path: 'home',
+    path: 'home', // Byter ut 'blog' mot 'home'
     loadComponent: () =>
-      import('./pages/home/home.component').then((m) => m.HomeComponent),
+      import('./pages/blog/blog.component').then((m) => m.BlogComponent), // Länka om till blog-sidan som home
   },
   {
-    path: 'blog',
-    loadComponent: () =>
-      import('./pages/blog/blog.component').then((m) => m.BlogComponent),
-  },
-  {
-    path: 'blog/:id', // Dynamic route for blog post details
+    path: 'blog/:id', // Dynamisk route för blogginlägg
     loadComponent: () =>
       import('./pages/blog-post-detail/blog-post-detail.component').then(
         (m) => m.BlogPostDetailComponent

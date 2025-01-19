@@ -6,6 +6,7 @@
   padding: 20px;
   background-color: #f4f4f9;
   min-height: 100vh;
+  padding-top: 50px;
 }
 
 /* Bloggens rubrik */
@@ -14,7 +15,6 @@ h1 {
   color: #333;
   text-align: center;
   margin-bottom: 20px;
-  margin-top: 50px;
 }
 
 /* Blogginlägg */
@@ -185,29 +185,29 @@ button:focus {
 
 /* Clear Posts Button Styling */
 .clear-posts-btn {
-  background-color: #f44336;  // Röd färg för att indikera rensning
-  color: white;               // Vit text
-  padding: 12px 25px;         // Padding för större knapp
-  margin: 20px 0;             // Lägg till margin för att skapa utrymme runt knappen (20px ovanför och nedanför)
-  border: none;               // Ingen kantlinje
-  border-radius: 8px;         // Rundade hörn
-  cursor: pointer;            // Pekar muspekaren när man hovrar
-  font-size: 16px;            // Större text
-  transition: background-color 0.3s ease;  // Mjuk övergång när man hovrar
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  // Lägger till en liten skugga för att ge djup
+  background-color: #f44336; // Röd färg för att indikera rensning
+  color: white; // Vit text
+  padding: 12px 25px; // Padding för större knapp
+  margin: 20px 0; // Lägg till margin för att skapa utrymme runt knappen (20px ovanför och nedanför)
+  border: none; // Ingen kantlinje
+  border-radius: 8px; // Rundade hörn
+  cursor: pointer; // Pekar muspekaren när man hovrar
+  font-size: 16px; // Större text
+  transition: background-color 0.3s ease; // Mjuk övergång när man hovrar
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Lägger till en liten skugga för att ge djup
 }
 
 .clear-posts-btn:hover {
-  background-color: #d32f2f;  // Mörkare röd när man hovrar
+  background-color: #d32f2f; // Mörkare röd när man hovrar
 }
 
 .clear-posts-btn:focus {
-  outline: none;  // Tar bort fokusramen
+  outline: none; // Tar bort fokusramen
 }
 
 .clear-posts-btn:active {
-  background-color: #b71c1c;  // Mörkare röd när man klickar
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);  // Lägger till en liten skugga när knappen är aktiv
+  background-color: #b71c1c; // Mörkare röd när man klickar
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Lägger till en liten skugga när knappen är aktiv
 }
 
 /* Styling for the actions section (Läs mer and Likes buttons) */

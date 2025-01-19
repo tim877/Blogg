@@ -1,62 +1,55 @@
-// src/app/shared/navbar/navbar.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ModalService } from '../../services/modal.service';
-import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf and other directives
+import { RouterLink, RouterLinkActive } from '@angular/router'; // Import RouterLink and RouterLinkActive
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule],
-  template: `
-    <nav class="navbar">
-      <div class="nav-brand">My Website</div>
-      <div class="nav-links">
-        <a routerLink="/home" routerLinkActive="active">Home</a>
-        <a routerLink="/blog" routerLinkActive="active">Blog</a>
-        <a routerLink="/about" routerLinkActive="active">About Me</a>
-
-        <button (click)="toggleView()">
-          {{ isOwnerView ? 'Switch to User View' : 'Switch to Owner View' }}
-        </button>
-
-        <button
-          *ngIf="isBlogPage && isOwnerView"
-          (click)="openCreatePostModal()"
-        >
-          Create New Post
-        </button>
-      </div>
-    </nav>
-  `,
+  imports: [CommonModule, RouterLink, RouterLinkActive], // Add the necessary imports for directives
+  templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  isBlogPage = false;
+  isHomePage = false; // Track if we are on the home page
   isOwnerView = false;
+  isAboutPage = false; // Track if we are on the about page
 
-  constructor(private modalService: ModalService, private router: Router) {}
+  constructor(private modalService: ModalService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
+    // Check if we are on the home page
     this.router.events
-      .pipe(filter(() => this.router.url.includes('/blog')))
+      .pipe(filter(() => this.router.url.includes('/home')))
       .subscribe(() => {
-        this.isBlogPage = true;
+        this.isHomePage = true; // Set to true if we are on the home page
+        this.isAboutPage = false; // Set to false if we are not on the about page
       });
 
+    // Check if we are on the about page using the ActivatedRoute
     this.router.events
-      .pipe(filter(() => !this.router.url.includes('/blog')))
+      .pipe(filter(() => this.router.url.includes('/about')))
       .subscribe(() => {
-        this.isBlogPage = false;
+        this.isAboutPage = true; // Set to true if we are on the about page
+        this.isHomePage = false; // Set to false if we are on the home page
+      });
+
+    // Handle case for other pages (if applicable)
+    this.router.events
+      .pipe(filter(() => !this.router.url.includes('/home') && !this.router.url.includes('/about')))
+      .subscribe(() => {
+        this.isHomePage = false;
+        this.isAboutPage = false;
       });
   }
 
   toggleView() {
-    this.isOwnerView = !this.isOwnerView;
+    this.isOwnerView = !this.isOwnerView; // Toggle between user and owner view
   }
 
   openCreatePostModal() {
-    this.modalService.toggleModal(true);
+    this.modalService.toggleModal(true); // Open the modal for creating a post
   }
 }

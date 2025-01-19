@@ -1,0 +1,20 @@
+<nav class="navbar">
+    <div class="nav-brand">My Website</div>
+    <div class="nav-links">
+      <a routerLink="/home" routerLinkActive="active">Home</a>
+      <a routerLink="/about" routerLinkActive="active">About Me</a>
+  
+      <!-- Hide the "Switch to Owner View" button if we are on the About page -->
+      <button *ngIf="!isAboutPage" (click)="toggleView()">
+        {{ isOwnerView ? 'Switch to User View' : 'Switch to Owner View' }}
+      </button>
+  
+      <button
+        *ngIf="isHomePage && isOwnerView"
+        (click)="openCreatePostModal()"
+      >
+        Create New Post
+      </button>
+    </div>
+  </nav>
+  

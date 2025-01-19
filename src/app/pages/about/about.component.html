@@ -1,1 +1,45 @@
-<p>about works!</p>
+<div class="about-page">
+    <section>
+      <h1>Om mig</h1>
+      <p>
+        För att lägga till en sektion där man kan skriva om sig själv, kan vi
+        uppdatera AboutComponent för att inkludera en med en och en textinmatning.
+        Detta kan användas för att skriva och visa texten "Om mig".
+      </p>
+    </section>
+  
+    <section>
+      <h1>Kontakta mig</h1>
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div>
+          <label for="name">Namn:</label>
+          <input id="name" formControlName="name" />
+          <div
+            *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+          >
+            Namn är obligatoriskt.
+          </div>
+        </div>
+        <div>
+          <label for="email">E-post:</label>
+          <input id="email" formControlName="email" type="email" />
+          <div
+            *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+          >
+            Ange en giltig e-postadress.
+          </div>
+        </div>
+        <div>
+          <label for="message">Meddelande:</label>
+          <textarea id="message" formControlName="message"></textarea>
+          <div
+            *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+          >
+            Meddelande är obligatoriskt.
+          </div>
+        </div>
+        <button type="submit" [disabled]="contactForm.invalid">Skicka</button>
+      </form>
+    </section>
+  </div>
+  
