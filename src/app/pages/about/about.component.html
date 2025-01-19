@@ -1,45 +1,56 @@
 <div class="about-page">
-    <section>
-      <h1>Om mig</h1>
-      <p>
-        För att lägga till en sektion där man kan skriva om sig själv, kan vi
-        uppdatera AboutComponent för att inkludera en med en och en textinmatning.
-        Detta kan användas för att skriva och visa texten "Om mig".
-      </p>
-    </section>
-  
-    <section>
-      <h1>Kontakta mig</h1>
-      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-        <div>
-          <label for="name">Namn:</label>
-          <input id="name" formControlName="name" />
-          <div
-            *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
-          >
-            Namn är obligatoriskt.
-          </div>
+  <section>
+    <h1>About Me</h1>
+    <p>
+      I am a passionate programmer with a strong curiosity about how software
+      works and how it can be used to solve real-world problems. With experience
+      in various programming languages and frameworks, I constantly seek to
+      learn and improve my skills. I believe that programming is not just about
+      writing code but about understanding the needs of users and crafting
+      solutions that make their lives easier. I enjoy working on both individual
+      projects and collaborating with teams to bring ideas to life.
+    </p>
+  </section>
+
+  <section>
+    <h1>Contact Me</h1>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="name">Name:</label>
+        <input id="name" formControlName="name" />
+        <div
+          *ngIf="
+            contactForm.get('name')?.invalid && contactForm.get('name')?.touched
+          "
+        >
+          Name is required.
         </div>
-        <div>
-          <label for="email">E-post:</label>
-          <input id="email" formControlName="email" type="email" />
-          <div
-            *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
-          >
-            Ange en giltig e-postadress.
-          </div>
+      </div>
+      <div>
+        <label for="email">Email:</label>
+        <input id="email" formControlName="email" type="email" />
+        <div
+          *ngIf="
+            contactForm.get('email')?.invalid &&
+            contactForm.get('email')?.touched
+          "
+        >
+          Please enter a valid email address.
         </div>
-        <div>
-          <label for="message">Meddelande:</label>
-          <textarea id="message" formControlName="message"></textarea>
-          <div
-            *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
-          >
-            Meddelande är obligatoriskt.
-          </div>
+      </div>
+      <div>
+        <label for="message">Message:</label>
+        <textarea id="message" formControlName="message"></textarea>
+        <div
+          *ngIf="
+            contactForm.get('message')?.invalid &&
+            contactForm.get('message')?.touched
+          "
+        >
+          Message is required.
         </div>
-        <button type="submit" [disabled]="contactForm.invalid">Skicka</button>
-      </form>
-    </section>
-  </div>
-  
+      </div>
+      <button type="submit" [disabled]="contactForm.invalid">Send</button>
+    </form>
+  </section>
+</div>
