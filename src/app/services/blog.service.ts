@@ -18,68 +18,68 @@ interface BlogPost {
   providedIn: 'root',
 })
 export class BlogService {
-  private blogPostsKey = 'blogPosts';
+  private blogPostsKey = 'blogPosts'; // Key used to store blog posts in localStorage
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  // Helper function to generate unique ID
+  // Generates a unique ID for each blog post
   private generateUniqueId(): string {
     return `${Date.now()}-${Math.floor(Math.random() * 1000)}`;
   }
 
-  // Get all blog posts from localStorage
+  // Retrieves all blog posts from localStorage
   getBlogPosts(): BlogPost[] {
-    if (isPlatformBrowser(this.platformId)) {  // Check if the code is running in the browser
+    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
       const blogPosts = localStorage.getItem(this.blogPostsKey);
-      return blogPosts ? JSON.parse(blogPosts) : [];
+      return blogPosts ? JSON.parse(blogPosts) : []; // Parse and return posts or an empty array
     }
-    return [];  // Return an empty array if not in the browser
+    return []; // Return an empty array if not running in the browser
   }
 
-  // Add a new blog post
+  // Adds a new blog post and saves it to localStorage
   addBlogPost(title: string, content: string, date: string, imageUrl: string): void {
-    if (isPlatformBrowser(this.platformId)) {  // Check if the code is running in the browser
-      const id = this.generateUniqueId();  // Create unique ID
-      const blogPosts = this.getBlogPosts();  // Get existing posts
+    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
+      const id = this.generateUniqueId(); // Generate a unique ID for the new post
+      const blogPosts = this.getBlogPosts(); // Get existing posts from localStorage
       blogPosts.push({
         id,
         title,
         content,
         date,
         imageUrl,
-        likes: 0,
-        dislikes: 0,
+        likes: 0, // Initialize likes count
+        dislikes: 0, // Initialize dislikes count
         comments: [], // Initialize comments array
-      }); // Add new post
-      localStorage.setItem(this.blogPostsKey, JSON.stringify(blogPosts)); // Save to localStorage
+      });
+      localStorage.setItem(this.blogPostsKey, JSON.stringify(blogPosts)); // Save updated posts to localStorage
     }
   }
 
-  // Update an existing blog post
+  // Updates an existing blog post in localStorage
   updateBlogPost(post: BlogPost): void {
-    if (isPlatformBrowser(this.platformId)) {  // Check if the code is running in the browser
-      const blogPosts = this.getBlogPosts();
-      const postIndex = blogPosts.findIndex((p: BlogPost) => p.id === post.id); // Explicitly define type
+    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
+      const blogPosts = this.getBlogPosts(); // Get existing posts from localStorage
+      const postIndex = blogPosts.findIndex((p: BlogPost) => p.id === post.id); // Find the index of the post to update
       if (postIndex !== -1) {
-        blogPosts[postIndex] = post;
-        localStorage.setItem(this.blogPostsKey, JSON.stringify(blogPosts));
+        blogPosts[postIndex] = post; // Update the post
+        localStorage.setItem(this.blogPostsKey, JSON.stringify(blogPosts)); // Save updated posts to localStorage
       }
     }
   }
 
-  // Get a specific blog post by ID
+  // Retrieves a specific blog post by its ID
   getBlogPostById(postId: string): BlogPost | undefined {
-    if (isPlatformBrowser(this.platformId)) {  // Check if the code is running in the browser
-      const blogPosts = this.getBlogPosts();
-      return blogPosts.find((p: BlogPost) => p.id === postId); // Explicitly define type
+    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
+      const blogPosts = this.getBlogPosts(); // Get existing posts from localStorage
+      return blogPosts.find((p: BlogPost) => p.id === postId); // Find and return the post with the specified ID
     }
-    return undefined;  // Return undefined if not in the browser
+    return undefined; // Return undefined if not running in the browser
   }
 
-  // Clear all blog posts from localStorage
+  // Clears all blog posts from localStorage
   clearAllPosts(): void {
-    if (isPlatformBrowser(this.platformId)) {  // Check if the code is running in the browser
-      localStorage.removeItem(this.blogPostsKey);
+    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
+      localStorage.removeItem(this.blogPostsKey); // Remove all blog posts from localStorage
     }
   }
 }

@@ -7,49 +7,51 @@ import { RouterLink, RouterLinkActive } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive], // Add the necessary imports for directives
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  standalone: true, // Enables the component to be used as a standalone Angular component
+  imports: [CommonModule, RouterLink, RouterLinkActive], // Include necessary directives for template usage
+  templateUrl: './navbar.component.html', // HTML file for the component's structure
+  styleUrls: ['./navbar.component.scss'], // SCSS file for the component's styling
 })
 export class NavbarComponent implements OnInit {
-  isHomePage = false; // Track if we are on the home page
-  isOwnerView = false;
-  isAboutPage = false; // Track if we are on the about page
+  isHomePage = false; // Tracks if the current page is the home page
+  isOwnerView = false; // Tracks whether the owner view is active
+  isAboutPage = false; // Tracks if the current page is the about page
 
   constructor(private modalService: ModalService, private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    // Check if we are on the home page
+    // Subscribe to router events to check if the user is on the home page
     this.router.events
-      .pipe(filter(() => this.router.url.includes('/home')))
+      .pipe(filter(() => this.router.url.includes('/home'))) // Check if the URL contains '/home'
       .subscribe(() => {
-        this.isHomePage = true; // Set to true if we are on the home page
-        this.isAboutPage = false; // Set to false if we are not on the about page
+        this.isHomePage = true; // Mark as home page
+        this.isAboutPage = false; // Ensure the about page flag is reset
       });
 
-    // Check if we are on the about page using the ActivatedRoute
+    // Subscribe to router events to check if the user is on the about page
     this.router.events
-      .pipe(filter(() => this.router.url.includes('/about')))
+      .pipe(filter(() => this.router.url.includes('/about'))) // Check if the URL contains '/about'
       .subscribe(() => {
-        this.isAboutPage = true; // Set to true if we are on the about page
-        this.isHomePage = false; // Set to false if we are on the home page
+        this.isAboutPage = true; // Mark as about page
+        this.isHomePage = false; // Ensure the home page flag is reset
       });
 
-    // Handle case for other pages (if applicable)
+    // Handle other pages that are not home or about
     this.router.events
       .pipe(filter(() => !this.router.url.includes('/home') && !this.router.url.includes('/about')))
       .subscribe(() => {
-        this.isHomePage = false;
-        this.isAboutPage = false;
+        this.isHomePage = false; // Reset home page flag
+        this.isAboutPage = false; // Reset about page flag
       });
   }
 
+  // Toggles between user view and owner view
   toggleView() {
-    this.isOwnerView = !this.isOwnerView; // Toggle between user and owner view
+    this.isOwnerView = !this.isOwnerView; // Switch the view mode
   }
 
+  // Opens the modal for creating a new post
   openCreatePostModal() {
-    this.modalService.toggleModal(true); // Open the modal for creating a post
+    this.modalService.toggleModal(true); // Trigger the modal visibility to open
   }
 }
