@@ -1,4 +1,3 @@
-// Main application component
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router'; // Enables routing and view rendering
 import { NavbarComponent } from './shared/navbar/navbar.component'; // Navigation bar component
@@ -8,11 +7,12 @@ import { NavbarComponent } from './shared/navbar/navbar.component'; // Navigatio
   standalone: true, // Marks the component as standalone
   imports: [RouterOutlet, NavbarComponent], // Includes RouterOutlet for routing and NavbarComponent for navigation
   template: `
-    <app-navbar></app-navbar> <!-- Navigation bar rendered at the top -->
+    <app-navbar></app-navbar>
+    <!-- Navigation bar rendered at the top -->
     <main class="container">
-      <router-outlet></router-outlet> <!-- Placeholder for routed views -->
+      <router-outlet></router-outlet>
+      <!-- Placeholder for routed views -->
     </main>
-  `,
-  styleUrl: './app.component.scss', // SCSS file for component styling
+  `, // Inline template instead of external HTML file
 })
 export class AppComponent {}
