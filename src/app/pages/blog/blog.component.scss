@@ -1,5 +1,4 @@
-// src/app/pages/blog/blog.component.scss
-/* Generella layoutinställningar */
+/* General layout settings */
 .page {
   font-family: "Arial", sans-serif;
   margin: 0;
@@ -9,7 +8,7 @@
   padding-top: 50px;
 }
 
-/* Bloggens rubrik */
+/* Blog heading */
 h1 {
   font-size: 2.5rem;
   color: #333;
@@ -17,13 +16,13 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* Blogginlägg */
+/* Blog posts */
 .blog-posts {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   padding: 0;
-  grid-auto-flow: dense; /* Lägg till detta för att bättre hantera layouten */
+  grid-auto-flow: dense;
 }
 
 .blog-post {
@@ -35,7 +34,7 @@ h1 {
 }
 
 .blog-post:nth-child(1) {
-  grid-column: 1 / span 1; /* Gör det första inlägget lite bredare om du vill */
+  grid-column: 1 / span 1;
 }
 
 .blog-post:hover {
@@ -69,7 +68,7 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6); /* Darker background */
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,7 +96,7 @@ h1 {
   }
 }
 
-/* Formulär */
+/* Form */
 form {
   display: flex;
   flex-direction: column;
@@ -110,7 +109,7 @@ label {
   color: #333;
 }
 
-/* Inputfält och textarea */
+/* Input fields and textarea */
 input,
 textarea {
   padding: 10px;
@@ -132,7 +131,7 @@ textarea {
   min-height: 120px;
 }
 
-/* Knappar */
+/* Buttons */
 button {
   padding: 12px 20px;
   font-size: 16px;
@@ -164,7 +163,7 @@ button:focus {
   outline: none;
 }
 
-/* Responsiv design */
+/* Responsive design */
 @media (max-width: 768px) {
   .blog-posts {
     grid-template-columns: 1fr;
@@ -176,7 +175,7 @@ button:focus {
   }
 }
 
-/* image size in post */
+/* Image size in post */
 .post-image {
   max-width: 100%;
   height: auto;
@@ -185,32 +184,32 @@ button:focus {
 
 /* Clear Posts Button Styling */
 .clear-posts-btn {
-  background-color: #f44336; // Röd färg för att indikera rensning
-  color: white; // Vit text
-  padding: 12px 25px; // Padding för större knapp
-  margin: 20px 0; // Lägg till margin för att skapa utrymme runt knappen (20px ovanför och nedanför)
-  border: none; // Ingen kantlinje
-  border-radius: 8px; // Rundade hörn
-  cursor: pointer; // Pekar muspekaren när man hovrar
-  font-size: 16px; // Större text
-  transition: background-color 0.3s ease; // Mjuk övergång när man hovrar
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Lägger till en liten skugga för att ge djup
+  background-color: #f44336;
+  color: white;
+  padding: 12px 25px;
+  margin: 20px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .clear-posts-btn:hover {
-  background-color: #d32f2f; // Mörkare röd när man hovrar
+  background-color: #d32f2f;
 }
 
 .clear-posts-btn:focus {
-  outline: none; // Tar bort fokusramen
+  outline: none; // Removes focus outline
 }
 
 .clear-posts-btn:active {
-  background-color: #b71c1c; // Mörkare röd när man klickar
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); // Lägger till en liten skugga när knappen är aktiv
+  background-color: #b71c1c;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Styling for the actions section (Läs mer and Likes buttons) */
+/* Styling for the actions section (Read More and Likes buttons) */
 .post-actions {
   display: flex;
   justify-content: space-between;
@@ -228,5 +227,5 @@ button {
 }
 
 span {
-  margin-left: 5px; /* Adjust the value as needed */
+  margin-left: 5px;
 }

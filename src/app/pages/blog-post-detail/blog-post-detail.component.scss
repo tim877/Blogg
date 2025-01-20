@@ -22,11 +22,11 @@ h1 {
 
 /* Image styling */
 .post-image {
-  width: 80%; /* Set to 100% or a smaller value like 80% for better balance */
-  max-width: 400px; /* Optional: Limit the maximum size of the image */
-  height: auto; /* Keep height proportional to the width for better scaling */
-  max-height: 400px; /* Optional: Cap the height to avoid oversized images */
-  object-fit: cover; /* Ensure the image fills the space without distortion */
+  width: 80%;
+  max-width: 400px;
+  height: auto;
+  max-height: 400px;
+  object-fit: cover;
   border-radius: 8px;
   margin-top: 20px;
   display: block;
@@ -50,17 +50,17 @@ small {
   color: #555;
   line-height: 1.6;
   margin-bottom: 1px;
-  text-align: center; /* Centers the text */
+  text-align: center;
   width: 100%;
-  max-width: 900px; /* Allow more content space */
+  max-width: 900px;
 
   /* Flexbox for centering */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Horizontally centers the content */
-  justify-content: center; /* Vertically centers the content */
+  align-items: center;
+  justify-content: center;
   margin-left: auto;
-  margin-right: auto; /* Center the entire content block */
+  margin-right: auto;
 }
 
 /* Likes and dislikes buttons */

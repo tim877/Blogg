@@ -1,4 +1,3 @@
-// src/app/services/blog.service.ts
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -29,7 +28,8 @@ export class BlogService {
 
   // Retrieves all blog posts from localStorage
   getBlogPosts(): BlogPost[] {
-    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
+    if (isPlatformBrowser(this.platformId)) {
+      // Ensure the code runs only in the browser
       const blogPosts = localStorage.getItem(this.blogPostsKey);
       return blogPosts ? JSON.parse(blogPosts) : []; // Parse and return posts or an empty array
     }
@@ -37,8 +37,14 @@ export class BlogService {
   }
 
   // Adds a new blog post and saves it to localStorage
-  addBlogPost(title: string, content: string, date: string, imageUrl: string): void {
-    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
+  addBlogPost(
+    title: string,
+    content: string,
+    date: string,
+    imageUrl: string
+  ): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // Ensure the code runs only in the browser
       const id = this.generateUniqueId(); // Generate a unique ID for the new post
       const blogPosts = this.getBlogPosts(); // Get existing posts from localStorage
       blogPosts.push({
@@ -57,7 +63,8 @@ export class BlogService {
 
   // Updates an existing blog post in localStorage
   updateBlogPost(post: BlogPost): void {
-    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
+    if (isPlatformBrowser(this.platformId)) {
+      // Ensure the code runs only in the browser
       const blogPosts = this.getBlogPosts(); // Get existing posts from localStorage
       const postIndex = blogPosts.findIndex((p: BlogPost) => p.id === post.id); // Find the index of the post to update
       if (postIndex !== -1) {
@@ -69,7 +76,8 @@ export class BlogService {
 
   // Retrieves a specific blog post by its ID
   getBlogPostById(postId: string): BlogPost | undefined {
-    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
+    if (isPlatformBrowser(this.platformId)) {
+      // Ensure the code runs only in the browser
       const blogPosts = this.getBlogPosts(); // Get existing posts from localStorage
       return blogPosts.find((p: BlogPost) => p.id === postId); // Find and return the post with the specified ID
     }
@@ -78,7 +86,8 @@ export class BlogService {
 
   // Clears all blog posts from localStorage
   clearAllPosts(): void {
-    if (isPlatformBrowser(this.platformId)) { // Ensure the code runs only in the browser
+    if (isPlatformBrowser(this.platformId)) {
+      // Ensure the code runs only in the browser
       localStorage.removeItem(this.blogPostsKey); // Remove all blog posts from localStorage
     }
   }

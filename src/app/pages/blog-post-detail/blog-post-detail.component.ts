@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BlogService } from '../../services/blog.service';
 import { ModalService } from '../../services/modal.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Import FormsModule for two-way binding
+import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs'; // To manage subscriptions
 
 @Component({

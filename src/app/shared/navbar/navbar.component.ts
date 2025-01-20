@@ -2,22 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalService } from '../../services/modal.service';
 import { filter } from 'rxjs/operators';
-import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf and other directives
-import { RouterLink, RouterLinkActive } from '@angular/router'; // Import RouterLink and RouterLinkActive
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  standalone: true, // Enables the component to be used as a standalone Angular component
-  imports: [CommonModule, RouterLink, RouterLinkActive], // Include necessary directives for template usage
-  templateUrl: './navbar.component.html', // HTML file for the component's structure
-  styleUrls: ['./navbar.component.scss'], // SCSS file for the component's styling
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   isHomePage = false; // Tracks if the current page is the home page
   isOwnerView = false; // Tracks whether the owner view is active
   isAboutPage = false; // Tracks if the current page is the about page
 
-  constructor(private modalService: ModalService, private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private modalService: ModalService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     // Subscribe to router events to check if the user is on the home page
@@ -38,7 +42,13 @@ export class NavbarComponent implements OnInit {
 
     // Handle other pages that are not home or about
     this.router.events
-      .pipe(filter(() => !this.router.url.includes('/home') && !this.router.url.includes('/about')))
+      .pipe(
+        filter(
+          () =>
+            !this.router.url.includes('/home') &&
+            !this.router.url.includes('/about')
+        )
+      )
       .subscribe(() => {
         this.isHomePage = false; // Reset home page flag
         this.isAboutPage = false; // Reset about page flag
